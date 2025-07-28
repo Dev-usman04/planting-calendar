@@ -1,0 +1,17 @@
+/* App.css */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.app {
+  background: linear-gradient(to right, #d4fc79, #96e6a1);
+}
+
+input, select {
+  outline: none;
+}
+
+input:focus, select:focus {
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.5);
+}
