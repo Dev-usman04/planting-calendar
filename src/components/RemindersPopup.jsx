@@ -20,10 +20,12 @@ export default function RemindersPopup({ onClose, reminders, setReminders, allow
             <button
               onClick={() => {
                 try {
-                  const updated = reminders.filter((reminder) => reminder.id !== id);
-                  setReminders(updated);
-                  localStorage.setItem('reminders', JSON.stringify(updated));
+                  // Ensure id is compared correctly (as a number)
+                  const updatedReminders = reminders.filter((reminder) => Number(reminder.id) !== Number(id));
+                  setReminders(updatedReminders);
+                  localStorage.setItem('reminders', JSON.stringify(updatedReminders));
                   toast.dismiss(toastId);
+                  toast.success('Reminder deleted successfully.');
                 } catch (error) {
                   console.error('Error deleting reminder:', error);
                   toast.error('Failed to delete reminder. Please try again.');
@@ -53,13 +55,14 @@ export default function RemindersPopup({ onClose, reminders, setReminders, allow
 
   const handleSaveEdit = (id) => {
     try {
-      const updated = reminders.map((reminder) =>
-        reminder.id === id ? { ...reminder, note: editedNote } : reminder
+      const updatedReminders = reminders.map((reminder) =>
+        Number(reminder.id) === Number(id) ? { ...reminder, note: editedNote } : reminder
       );
-      setReminders(updated);
-      localStorage.setItem('reminders', JSON.stringify(updated));
+      setReminders(updatedReminders);
+      localStorage.setItem('reminders', JSON.stringify(updatedReminders));
       setEditingId(null);
       setEditedNote('');
+      toast.success('Reminder updated successfully.');
     } catch (error) {
       console.error('Error saving edit:', error);
       toast.error('Failed to save edit. Please try again.');
